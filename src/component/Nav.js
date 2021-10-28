@@ -1,4 +1,4 @@
-import { Menu } from 'antd';
+import {Avatar, Button, List, Menu} from 'antd';
 import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import React from 'react';
 import {
@@ -7,6 +7,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import Task from "./Task";
 
 const { SubMenu } = Menu;
 
@@ -30,7 +31,7 @@ export class Nav extends React.Component {
                         自我生长
                     </Menu.Item>
                     <Menu.Item key="test" icon={<AppstoreOutlined />}>
-                        <Link to="/">Home</Link>
+                        首页
                     </Menu.Item>
                     <SubMenu key="taskManagement" icon={<SettingOutlined />} title="任务管理">
                         <Menu.ItemGroup title="列表">
@@ -43,6 +44,7 @@ export class Nav extends React.Component {
                             <Menu.Item key="month">月</Menu.Item>
                             <Menu.Item key="year">年</Menu.Item>
                             <Menu.Item key="users"><Link to="/users">Users</Link></Menu.Item>
+                            <Menu.Item key="task"><Link to="/task">task</Link></Menu.Item>
                         </Menu.ItemGroup>
                     </SubMenu>
                     <Menu.Item key="alipay">
@@ -62,6 +64,7 @@ export class Nav extends React.Component {
                     <Route path="/">
                         <Home />
                     </Route>
+                    <Route path="/task" component={Task}/>
                 </Switch>
 
             </Router>
@@ -78,7 +81,43 @@ function About() {
 }
 
 function Users() {
-    return <h2>Users</h2>;
+    const data = [
+        {
+            title: 'Ant Design Title 1',
+        },
+        {
+            title: 'Ant Design Title 2',
+        },
+        {
+            title: 'Ant Design Title 3',
+        },
+        {
+            title: 'Ant Design Title 4',
+        },
+    ];
+    return <List
+        itemLayout="horizontal"
+        dataSource={data}
+        renderItem={item => (
+            <List.Item>
+                <label>{item.title}</label>
+                <Button type="text">添加任务</Button>
+                <List
+                    itemLayout="horizontal"
+                    dataSource={data}
+                    renderItem={item => (
+                        <List.Item>
+                            <List.Item.Meta
+                                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                                title={<a href="https://ant.design">{item.title}</a>}
+                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                            />
+                        </List.Item>
+                    )}
+                />;
+            </List.Item>
+        )}
+    />;
 }
 
 export default Nav;
