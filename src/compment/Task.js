@@ -2,7 +2,8 @@ import { List} from 'antd';
 import React from "react";
 import TaskLabel from "./TaskLable";
 import TaskDetail from "./TaskDetail";
-import axios from 'axios';
+import "../api/taskRequest"
+import {getTaskListByGroup} from "../api/taskRequest";
 
 export class Task extends React.Component {
     constructor(props) {
@@ -18,10 +19,9 @@ export class Task extends React.Component {
     }
 
     componentDidMount() {
-        const apiUrl = 'http://localhost:8080/v1/task/listByGroup';
-        fetch(apiUrl)
-            .then((response) => response.json())
-            .then((data) => console.log('This is your data', data));
+        getTaskListByGroup().then(res => {
+            console.log(res);
+        });
     }
 
     render() {
