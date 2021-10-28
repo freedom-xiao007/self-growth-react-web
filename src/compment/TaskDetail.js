@@ -3,7 +3,7 @@ import React from "react";
 export class TaskLabel extends React.Component {
     render() {
         return (
-            <div>Task Detail</div>
+            <div>{this.props.value}</div>
         );
     }
 }

@@ -6,11 +6,12 @@ import TaskDetail from "./TaskDetail";
 export class Task extends React.Component {
     render() {
         const data = [
-            'Racing car sprays burning fuel into crowd.',
-            'Japanese princess to wed commoner.',
-            'Australian walks 100km after outback crash.',
-            'Man charged over missing wedding girl.',
-            'Los Angeles battles huge wildfires.',
+            {
+                "group": "taskGroup",
+                "taskList": [
+                    "task detail"
+                ]
+            }
         ];
 
         return (
@@ -21,11 +22,11 @@ export class Task extends React.Component {
                 renderItem={item => <List.Item>
                     <List
                         size="large"
-                        header={<TaskLabel/>}
+                        header={<TaskLabel value={item.group}/>}
                         bordered
-                        dataSource={data}
+                        dataSource={item.taskList}
                         renderItem={item => <List.Item>
-                            <TaskDetail/>
+                            <TaskDetail value={item}/>
                         </List.Item>}
                     />
                 </List.Item>}
