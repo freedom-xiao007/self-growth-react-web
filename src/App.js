@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import { Nav } from './component/Nav';
-import Task from "./compment/Task";
+import Login from "./compment/Login";
 
 const App = () => (
     <div className="App">
-        <Task/>
+        <Login/>
     </div>
 );
 
