@@ -27,7 +27,7 @@ export class Login extends React.Component {
             >
                 <Form.Item
                     label="Username"
-                    name="username"
+                    name="email"
                     rules={[{ required: true, message: 'Please input your username!' }]}
                 >
                     <Input />
