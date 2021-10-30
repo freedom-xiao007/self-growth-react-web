@@ -8,7 +8,7 @@ const service = axios.create({
     // withCredentials: true, // 跨域请求时发送 cookies
     timeout: 60000, // request timeout
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 })
 

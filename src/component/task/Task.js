@@ -5,6 +5,7 @@ import TaskDetail from "./TaskDetail";
 import "../../api/taskRequest"
 import {getTaskListByGroup} from "../../api/taskRequest";
 import AddGroupDialog from "./AddGroupDialog";
+import Nav from "../Nav";
 
 export class Task extends React.Component {
     constructor(props) {
@@ -42,6 +43,8 @@ export class Task extends React.Component {
     render() {
         return (
             <>
+                <Nav/>
+
                 <AddGroupDialog/>
 
                 <List
@@ -65,5 +68,3 @@ export class Task extends React.Component {
         );
     }
 }
-
-export default Task;
