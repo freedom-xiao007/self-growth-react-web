@@ -1,6 +1,7 @@
 import React from "react";
 import {DeleteOutlined} from "@ant-design/icons";
 import {Button} from "antd";
+import {completeTaskById} from "../../api/taskRequest";
 
 export class TaskLabel extends React.Component {
     render() {
@@ -23,12 +24,23 @@ export class TaskLabel extends React.Component {
             1 : "输出",
         };
 
+        let id = this.props.value["id"];
         let name = this.props.value["name"];
         let cycle = cycleMap[this.props.value["cycleType"]];
         let description = cycleMap[this.props.value["description"]];
-        let isComplete = this.props.value["description"] ? "完成" : "未完成";
+        let isComplete = this.props.value["description"] === "true" ? "完成" : "未完成";
         let label = labelMap[this.props.value["label"]]
         let learnType = learnTypeMap[labelMap[this.props.value["learnType"]]];
+
+        function completeTask() {
+            completeTaskById(id).then(res => {
+                console.log(res);
+            });
+        }
+
+        function deleteTask() {
+
+        }
 
         return (
             <div>
@@ -38,10 +50,10 @@ export class TaskLabel extends React.Component {
                 <label>标签：{label}</label>
                 <label>学习类型：{learnType}</label>
                 <label>是否完成：{isComplete}</label>
-                <Button type="primary" icon={<DeleteOutlined />} size="small">
+                <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={completeTask}>
                     完成
                 </Button>
-                <Button type="primary" icon={<DeleteOutlined />} size="small">
+                <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={deleteTask}>
                     删除
                 </Button>
             </div>
