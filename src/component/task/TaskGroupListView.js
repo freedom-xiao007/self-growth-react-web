@@ -1,12 +1,14 @@
 import React from "react";
-import {Button, Space} from "antd";
-import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {Button, Input, message, Space} from "antd";
+import {DeleteOutlined} from "@ant-design/icons";
 import {AddTaskDialog} from "./AddTaskDialog";
-import {deleteTaskGroupByName} from "../../api/taskRequest";
+import {deleteTaskGroupByName, modifyGroupById} from "../../api/taskRequest";
 
 export class TaskGroupListView extends React.Component {
     state = {
         size: 'small',
+        group: this.props.value,
+        id: this.props.value.id,
     };
 
     render() {
@@ -31,6 +33,7 @@ export class TaskGroupListView extends React.Component {
             1 : "输出",
         };
 
+        let group = this.props.value;
         let id = this.props.value["id"];
         let name = this.props.value["name"];
         let cycle = cycleMap[this.props.value["cycleType"]];
@@ -44,10 +47,19 @@ export class TaskGroupListView extends React.Component {
             })
         }
 
+        function modifyGroup(e) {
+            console.log(e.target.value)
+            let modifyGroup = {"modifyId": id, "name": e.target.value}
+            modifyGroupById(modifyGroup).then(res => {
+                message.info('任务组修改成功').then(r => "任务组修改失败");
+                name = e.target.value;
+            })
+        }
+
         return (
             <div align="left">
                 <Space>
-                    <label>分组名称：{name}</label>
+                    <Input defaultValue={name} bordered={false} onPressEnter={modifyGroup}/>
                     <label>详情：{description}</label>
                     <label>周期：{cycle}</label>
                     <label>标签：{label}</label>

@@ -43,3 +43,11 @@ export function deleteTaskById(id) {
         method: "post",
     })
 }
+
+export function modifyGroupById(group) {
+    return request({
+        url: "http://127.0.0.1:8080/v1/task/modifyGroup",
+        method: "post",
+        data: group,
+    })
+}
