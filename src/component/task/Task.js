@@ -5,8 +5,9 @@ import TaskDetail from "./TaskDetail";
 import "../../api/taskRequest"
 import {getTaskListByGroup} from "../../api/taskRequest";
 import AddGroupDialog from "./AddGroupDialog";
+import { withRouter } from 'react-router-dom'
 
-export class Task extends React.Component {
+class Task extends React.Component {
     constructor(props) {
         super(props);
         this.data = [
@@ -65,3 +66,5 @@ export class Task extends React.Component {
         );
     }
 }
+
+export default withRouter(Task);

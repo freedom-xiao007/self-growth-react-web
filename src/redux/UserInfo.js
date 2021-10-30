@@ -1,12 +1,9 @@
-const loginUser = {}
-
-
 function updateUserToken(token) {
-    loginUser["token"] = token
+    window.sessionStorage.setItem('token', token);
 }
 
 function getLoginUserToken() {
-    return loginUser["token"];
+    return sessionStorage.getItem('token');
 }
 
 export {updateUserToken, getLoginUserToken};

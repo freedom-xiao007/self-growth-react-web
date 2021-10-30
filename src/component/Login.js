@@ -2,8 +2,9 @@ import React from "react";
 import {Button, Checkbox, Form, Input} from "antd";
 import {login} from "../api/UserRequest";
 import { updateUserToken, getLoginUserToken } from "../redux/UserInfo";
+import {withRouter} from "react-router-dom";
 
-export class Login extends React.Component {
+class Login extends React.Component {
     render() {
         const onFinish = (values: any) => {
             console.log('Success:', values);
@@ -59,4 +60,4 @@ export class Login extends React.Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

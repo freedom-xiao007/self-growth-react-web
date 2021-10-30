@@ -1,10 +1,11 @@
 import { Menu } from 'antd';
 import { AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 
 const { SubMenu } = Menu;
 
-export class Nav extends React.Component {
+class Nav extends React.Component {
     state = {
         current: 'mail',
     };
@@ -54,4 +55,4 @@ export class Nav extends React.Component {
     }
 }
 
-export default Nav;
+export default withRouter(Nav);
