@@ -1,6 +1,6 @@
 import React from "react";
-import {DeleteOutlined} from "@ant-design/icons";
-import {Button} from "antd";
+import {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
+import {Button, Space} from "antd";
 import {completeTaskById, deleteTaskById} from "../../api/taskRequest";
 
 export class TaskLabel extends React.Component {
@@ -46,18 +46,22 @@ export class TaskLabel extends React.Component {
 
         return (
             <div>
-                <label>名称：{name}</label>
-                <label>详情：{description}</label>
-                <label>周期：{cycle}</label>
-                <label>标签：{label}</label>
-                <label>学习类型：{learnType}</label>
-                <label>是否完成：{isComplete}</label>
-                <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={completeTask}>
-                    完成
-                </Button>
-                <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={deleteTask}>
-                    删除
-                </Button>
+                <Space>
+                    <label>名称：{name}</label>
+                    <label>详情：{description}</label>
+                    <label>周期：{cycle}</label>
+                    <label>标签：{label}</label>
+                    <label>学习类型：{learnType}</label>
+                    <label>是否完成：{isComplete}</label>
+
+                    <Button type="primary" icon={<CheckOutlined />} size="small" onClick={completeTask}>
+                        完成
+                    </Button>
+
+                    <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={deleteTask}>
+                        删除
+                    </Button>
+                </Space>
             </div>
         );
     }

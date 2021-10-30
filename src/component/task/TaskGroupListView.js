@@ -1,5 +1,5 @@
 import React from "react";
-import {Button} from "antd";
+import {Button, Space} from "antd";
 import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {AddTaskDialog} from "./AddTaskDialog";
 import {deleteTaskGroupByName} from "../../api/taskRequest";
@@ -20,12 +20,14 @@ export class TaskGroupListView extends React.Component {
         }
 
         return (
-            <div>
-                <label>分组名称：{groupName}</label>
-                <AddTaskDialog value={groupName}/>
-                <Button type="primary" icon={<DeleteOutlined />} size={size} onClick={deleteGroup}>
-                    删除分组
-                </Button>
+            <div align="left">
+                <Space>
+                    <label>分组名称：{groupName}</label>
+                    <AddTaskDialog value={groupName}/>
+                    <Button type="primary" icon={<DeleteOutlined />} size={size} onClick={deleteGroup}>
+                        删除分组
+                    </Button>
+                </Space>
             </div>
         );
     }

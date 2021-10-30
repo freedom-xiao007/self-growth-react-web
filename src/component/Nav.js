@@ -14,6 +14,8 @@ export class Nav extends React.Component {
         this.setState({ current: e.key });
         if (e.key === "task") {
             this.props.history.push("/task");
+        } else if (e.key === "home") {
+            this.props.history.push("/home");
         }
     };
 
@@ -24,7 +26,7 @@ export class Nav extends React.Component {
                 <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
                     自我生长
                 </Menu.Item>
-                <Menu.Item key="test" icon={<AppstoreOutlined />}>
+                <Menu.Item key="home" icon={<AppstoreOutlined />}>
                     首页
                 </Menu.Item>
                 <Menu.Item key="task" icon={<AppstoreOutlined />}>

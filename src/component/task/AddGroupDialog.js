@@ -20,7 +20,7 @@ const AddGroupDialog = () => {
 
     return (
         <>
-            <Button type="primary" icon={<PlusOutlined />} size="small" onClick={showModal}>
+            <Button type="primary" icon={<PlusOutlined />} size="large" onClick={showModal}>
                 增加分组
             </Button>
 
