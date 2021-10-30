@@ -11,6 +11,7 @@ export class Login extends React.Component {
                 console.log(res);
                 updateUserToken(res.data)
                 console.log(getLoginUserToken())
+                this.props.history.push("/home")
             })
         };
 
