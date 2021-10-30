@@ -5,7 +5,7 @@ import TaskDetail from "./TaskDetail";
 import "../api/taskRequest"
 import {getTaskListByGroup} from "../api/taskRequest";
 import {PlusOutlined} from "@ant-design/icons";
-import AddGroup from "./task/AddGroup";
+import AddGroupDialog from "./task/AddGroupDialog";
 
 export class Task extends React.Component {
     constructor(props) {
@@ -29,7 +29,7 @@ export class Task extends React.Component {
     render() {
         return (
             <>
-                <AddGroup/>
+                <AddGroupDialog/>
 
                 <List
                     size="large"

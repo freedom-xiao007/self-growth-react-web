@@ -6,3 +6,11 @@ export function getTaskListByGroup() {
         method: "get"
     });
 }
+
+export function addTaskGroup(groupName) {
+    return request({
+        url: "http://127.0.0.1:8080/v1/task/addTaskGroup",
+        method: "post",
+        data: groupName,
+    })
+}
