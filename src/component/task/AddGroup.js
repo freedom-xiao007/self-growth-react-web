@@ -34,7 +34,7 @@ export const AddGroup = () => {
             autoComplete="off"
         >
             <Form.Item
-                label="groupName"
+                label="任务组名称"
                 name="name"
                 rules={[
                     {
@@ -47,7 +47,7 @@ export const AddGroup = () => {
             </Form.Item>
 
             <Form.Item
-                label="任务描述："
+                label="任务组描述："
                 name="description"
                 rules={[
                     {
