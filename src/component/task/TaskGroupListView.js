@@ -1,6 +1,7 @@
 import React from "react";
 import {Button} from "antd";
 import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {AddTaskDialog} from "./AddTaskDialog";
 
 export class TaskGroupListView extends React.Component {
     state = {
@@ -13,9 +14,7 @@ export class TaskGroupListView extends React.Component {
         return (
             <div>
                 <label>分组名称：{this.props.value}</label>
-                <Button type="primary" icon={<PlusOutlined />} size={size}>
-                    增加任务
-                </Button>
+                <AddTaskDialog value={this.props.value}/>
                 <Button type="primary" icon={<DeleteOutlined />} size={size}>
                     删除分组
                 </Button>
