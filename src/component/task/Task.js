@@ -22,20 +22,18 @@ class Task extends React.Component {
 
     componentDidMount() {
         getTaskListByGroup().then(res => {
-            console.log(res);
+            console.log("getTaskListByGroup", res);
             let copyData = [];
             let resData = res.data;
-            let index = 0;
-            for (let key in resData) {
-                console.log(key, resData[key])
+            for (let index in resData) {
+                console.log("item:", resData[index])
                 copyData[index] = {
-                    "group": key,
-                    "taskList": resData[key],
+                    "group": resData[index]["group"],
+                    "taskList": resData[index]["tasks"],
                 }
-                index = index + 1;
             }
             this.data = copyData;
-            console.log(this.data);
+            console.log("this.data", this.data);
             this.forceUpdate();
         });
     }
