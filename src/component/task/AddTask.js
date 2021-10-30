@@ -7,6 +7,7 @@ export const AddTask = (groupName) => {
         values["group"] = groupName["groupName"]["value"];
         values["cycleType"] = parseInt(values["cycleType"])
         values["learnType"] = parseInt(values["learnType"])
+        values["outputType"] = parseInt(values["outputType"])
 
         console.log('Success:', values);
         addNewTask(values).then(res => {
@@ -53,7 +54,7 @@ export const AddTask = (groupName) => {
                 name="description"
                 rules={[
                     {
-                        required: true,
+                        required: false,
                         message: 'Please input new task group name!',
                     },
                 ]}
@@ -95,6 +96,16 @@ export const AddTask = (groupName) => {
                 >
                     <Option value="0">输入</Option>
                     <Option value="1">输出</Option>
+                </Select>
+            </Form.Item>
+
+            <Form.Item name="outputType" label="输出类型类型：" rules={[{ required: false}]}>
+                <Select
+                    placeholder="Select a option and change input text above"
+                    allowClear
+                >
+                    <Option value="0">代码</Option>
+                    <Option value="1">博客/笔记</Option>
                 </Select>
             </Form.Item>
 
