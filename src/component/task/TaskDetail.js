@@ -23,6 +23,10 @@ export class TaskLabel extends React.Component {
             0 : "输入",
             1 : "输出",
         };
+        let outputTypeMap = {
+            0 : "代码",
+            1 : "博客/笔记",
+        };
 
         let id = this.props.value["id"];
         let name = this.props.value["name"];
@@ -30,7 +34,8 @@ export class TaskLabel extends React.Component {
         let description = cycleMap[this.props.value["description"]];
         let isComplete = this.props.value["description"] === "true" ? "完成" : "未完成";
         let label = labelMap[this.props.value["label"]]
-        let learnType = learnTypeMap[labelMap[this.props.value["learnType"]]];
+        let learnType = learnTypeMap[this.props.value["learnType"]];
+        let outputType = outputTypeMap[this.props.value["outputType"]];
 
         function completeTask() {
             completeTaskById(id).then(res => {
@@ -53,6 +58,7 @@ export class TaskLabel extends React.Component {
                     <label>标签：{label}</label>
                     <label>学习类型：{learnType}</label>
                     <label>是否完成：{isComplete}</label>
+                    <label>输出类型：{outputType}</label>
 
                     <Button type="primary" icon={<CheckOutlined />} size="small" onClick={completeTask}>
                         完成
