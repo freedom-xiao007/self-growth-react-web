@@ -1,12 +1,15 @@
 import {Form, Input, Button, message, Select} from 'antd';
-import {addTaskGroup} from "../../api/taskRequest";
+import {addNewTask, addTaskGroup} from "../../api/taskRequest";
 import {Option} from "antd/es/mentions";
 
 export const AddTask = (groupName) => {
     const onFinish = (values) => {
         values["group"] = groupName["groupName"]["value"];
+        values["cycleType"] = parseInt(values["cycleType"])
+        values["learnType"] = parseInt(values["learnType"])
+        
         console.log('Success:', values);
-        addTaskGroup(values).then(res => {
+        addNewTask(values).then(res => {
             console.log(res);
             message.info('任务添加成功').then(r => "任务添加失败");
         })
@@ -58,7 +61,7 @@ export const AddTask = (groupName) => {
                 <Input />
             </Form.Item>
 
-            <Form.Item name="label" label="标签：" rules={[{ required: true }]}>
+            <Form.Item name="label" label="标签：" rules={[{ required: true}]}>
                 <Select
                     placeholder="Select a option and change input text above"
                     allowClear
@@ -72,7 +75,7 @@ export const AddTask = (groupName) => {
                 </Select>
             </Form.Item>
 
-            <Form.Item name="cycleType" label="周期：" rules={[{ required: true }]}>
+            <Form.Item name="cycleType" label="周期：" rules={[{ required: true}]}>
                 <Select
                     placeholder="Select a option and change input text above"
                     allowClear
@@ -84,7 +87,7 @@ export const AddTask = (groupName) => {
                 </Select>
             </Form.Item>
 
-            <Form.Item name="learnType" label="学习类型：" rules={[{ required: true }]}>
+            <Form.Item name="learnType" label="学习类型：" rules={[{ required: true}]}>
                 <Select
                     placeholder="Select a option and change input text above"
                     allowClear
