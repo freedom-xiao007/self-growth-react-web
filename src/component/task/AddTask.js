@@ -84,6 +84,7 @@ export const AddTask = (groupName) => {
                     <Option value="1">周</Option>
                     <Option value="2">月</Option>
                     <Option value="3">年</Option>
+                    <Option value="4">无</Option>
                 </Select>
             </Form.Item>
 
