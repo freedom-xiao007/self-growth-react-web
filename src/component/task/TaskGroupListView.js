@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 
-export class TaskLabel extends React.Component {
+export class TaskGroupListView extends React.Component {
     state = {
         size: 'small',
     };
@@ -25,4 +25,4 @@ export class TaskLabel extends React.Component {
     }
 }
 
-export default TaskLabel;
+export default TaskGroupListView;

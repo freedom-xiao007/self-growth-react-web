@@ -1,6 +1,6 @@
 import {Button, List} from 'antd';
 import React, {useState} from "react";
-import TaskLabel from "./TaskLable";
+import TaskGroupListView from "./TaskGroupListView";
 import TaskDetail from "./TaskDetail";
 import "../../api/taskRequest"
 import {getTaskListByGroup} from "../../api/taskRequest";
@@ -38,7 +38,7 @@ export class Task extends React.Component {
                     renderItem={item => <List.Item>
                         <List
                             size="large"
-                            header={<TaskLabel value={item.group}/>}
+                            header={<TaskGroupListView value={item.group}/>}
                             bordered
                             dataSource={item.taskList}
                             renderItem={item => <List.Item>
