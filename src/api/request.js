@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {changeUserInfo} from "../redux/actions";
+import { getLoginUserToken } from "../redux/UserInfo";
+
 // create an axios instance
 const service = axios.create({
     //   baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
@@ -14,7 +15,7 @@ const service = axios.create({
 // request interceptor
 service.interceptors.request.use(
     config => {
-        const NEBULA_TOKEN = changeUserInfo('token')
+        const NEBULA_TOKEN = getLoginUserToken()
         // Do something before request is sent
         if (NEBULA_TOKEN) {
             // 让每个请求携带token-- ['X-Token']为自定义key 请根据实际情况自行修改

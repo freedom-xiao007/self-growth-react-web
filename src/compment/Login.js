@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Checkbox, Form, Input} from "antd";
 import {login} from "../api/UserRequest";
+import { updateUserToken, getLoginUserToken } from "../redux/UserInfo";
 
 export class Login extends React.Component {
     render() {
@@ -8,6 +9,8 @@ export class Login extends React.Component {
             console.log('Success:', values);
             login(values).then(res => {
                 console.log(res);
+                updateUserToken(res.data)
+                console.log(getLoginUserToken())
             })
         };
 
