@@ -1,7 +1,7 @@
 import React from "react";
 import {DeleteOutlined} from "@ant-design/icons";
 import {Button} from "antd";
-import {completeTaskById} from "../../api/taskRequest";
+import {completeTaskById, deleteTaskById} from "../../api/taskRequest";
 
 export class TaskLabel extends React.Component {
     render() {
@@ -39,7 +39,9 @@ export class TaskLabel extends React.Component {
         }
 
         function deleteTask() {
-
+            deleteTaskById(id).then(res => {
+                console.log(res);
+            })
         }
 
         return (

@@ -36,3 +36,10 @@ export function deleteTaskGroupByName(name) {
         method: "post",
     })
 }
+
+export function deleteTaskById(id) {
+    return request({
+        url: "http://127.0.0.1:8080/v1/task/deleteTask/" + id,
+        method: "post",
+    })
+}
