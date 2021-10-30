@@ -1,37 +1,46 @@
-import React from 'react';
-import { List, Avatar } from 'antd';
+import { List} from 'antd';
+import React from "react";
+import TaskLabel from "./TaskLable";
+import TaskDetail from "./TaskDetail";
+import "../api/taskRequest"
+import {getTaskListByGroup} from "../api/taskRequest";
 
 export class Task extends React.Component {
+    constructor(props) {
+        super(props);
+        this.data = [
+            {
+                "group": "taskGroup",
+                "taskList": [
+                    "task detail"
+                ]
+            }
+        ];
+    }
+
+    componentDidMount() {
+        getTaskListByGroup().then(res => {
+            console.log(res);
+        });
+    }
 
     render() {
-        const data = [
-            {
-                title: 'Ant Design Title 1',
-            },
-            {
-                title: 'Ant Design Title 2',
-            },
-            {
-                title: 'Ant Design Title 3',
-            },
-            {
-                title: 'Ant Design Title 4',
-            },
-        ];
-
         return (
             <List
-                itemLayout="horizontal"
-                dataSource={data}
-                renderItem={item => (
-                    <List.Item>
-                        <List.Item.Meta
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                            title={<a href="https://ant.design">{item.title}</a>}
-                            description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                        />
-                    </List.Item>
-                )}
+                size="large"
+                bordered
+                dataSource={this.data}
+                renderItem={item => <List.Item>
+                    <List
+                        size="large"
+                        header={<TaskLabel value={item.group}/>}
+                        bordered
+                        dataSource={item.taskList}
+                        renderItem={item => <List.Item>
+                            <TaskDetail value={item}/>
+                        </List.Item>}
+                    />
+                </List.Item>}
             />
         );
     }

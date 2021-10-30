@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Login from "./compment/Login";
+import Login from "./component/Login";
 
 const App = () => (
     <div className="App">
