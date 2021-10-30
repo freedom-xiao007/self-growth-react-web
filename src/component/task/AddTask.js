@@ -7,7 +7,7 @@ export const AddTask = (groupName) => {
         values["group"] = groupName["groupName"]["value"];
         values["cycleType"] = parseInt(values["cycleType"])
         values["learnType"] = parseInt(values["learnType"])
-        
+
         console.log('Success:', values);
         addNewTask(values).then(res => {
             console.log(res);
