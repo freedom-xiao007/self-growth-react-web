@@ -7,7 +7,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Task from "./Task";
+import Task from "./task/Task";
 
 const { SubMenu } = Menu;
 

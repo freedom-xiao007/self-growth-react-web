@@ -2,10 +2,10 @@ import {Button, List} from 'antd';
 import React, {useState} from "react";
 import TaskLabel from "./TaskLable";
 import TaskDetail from "./TaskDetail";
-import "../api/taskRequest"
-import {getTaskListByGroup} from "../api/taskRequest";
+import "../../api/taskRequest"
+import {getTaskListByGroup} from "../../api/taskRequest";
 import {PlusOutlined} from "@ant-design/icons";
-import AddGroupDialog from "./task/AddGroupDialog";
+import AddGroupDialog from "./AddGroupDialog";
 
 export class Task extends React.Component {
     constructor(props) {
