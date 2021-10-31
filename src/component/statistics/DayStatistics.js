@@ -1,7 +1,9 @@
-import {DatePicker, Space, Table} from 'antd';
+import {Button, DatePicker, List, Modal, Space, Table, Timeline} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {dayTaskStatistics} from "../../api/taskRequest";
+import {AddGroup} from "../task/AddGroup";
+import {PlusOutlined} from "@ant-design/icons";
 
 export class DayStatistics extends React.Component {
     constructor(props) {
@@ -80,9 +82,23 @@ export class DayStatistics extends React.Component {
                     title: 'Action',
                     key: 'action',
                     render: (text, record) => (
-                        <Space size="middle">
-                            <a>历史记录</a>
-                        </Space>
+                        <div>
+                            <Button type="primary" icon={<PlusOutlined />} size="large" onClick={this.showModal}>
+                                时间点历史
+                            </Button>
+                            <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
+                                <List
+                                    header={<div>应用活动历史记录</div>}
+                                    bordered
+                                    dataSource={record.dates}
+                                    renderItem={item => (
+                                        <List.Item>
+                                            <p>{item}</p>
+                                        </List.Item>
+                                    )}
+                                />
+                            </Modal>
+                        </div>
                     ),
                 },
             ],
@@ -96,10 +112,27 @@ export class DayStatistics extends React.Component {
                     dates: ["2021-10-24T22:16:00.434Z", "2021-10-24T22:16:00.434Z"],
                 },
             ],
+
+            isModalVisible: false,
         };
 
         this.onChange = this.onChange.bind(this);
+        this.showModal = this.showModal.bind(this);
+        this.handleOk = this.handleOk.bind(this);
+        this.handleCancel = this.handleCancel.bind(this);
     }
+
+    showModal = () => {
+        this.setState({isModalVisible: true})
+    };
+
+    handleOk = () => {
+        this.setState({isModalVisible: false})
+    };
+
+    handleCancel = () => {
+        this.setState({isModalVisible: false})
+    };
 
     onChange(date, dateString) {
         let timestamp = new Date(dateString).getTime() / 1000;
