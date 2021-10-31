@@ -1,10 +1,11 @@
-import {List, Space, Table} from 'antd';
+import {Button, List, message, Space, Table} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
-import {getTaskListByGroup} from "../../api/taskRequest";
+import {completeTaskById, deleteTaskById, getTaskListByGroup} from "../../api/taskRequest";
 import AddGroupDialog from "./AddGroupDialog";
 import { withRouter } from 'react-router-dom'
 import {TaskGroupListView} from "./TaskGroupListView";
+import {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
 
 class Task extends React.Component {
     constructor(props) {
@@ -43,9 +44,16 @@ class Task extends React.Component {
                     title: 'Action',
                     key: 'action',
                     render: (text, record) => (
-                        <Space size="middle">
-                            <a>Delete</a>
-                        </Space>
+                        <div>
+                            <Space>
+                            <Button type="primary" icon={<CheckOutlined />} size="small" onClick={this.completeTask.bind(this, record.id)}>
+                                完成
+                            </Button>
+                            <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={this.deleteTask.bind(this, record.id)}>
+                                删除
+                            </Button>
+                            </Space>
+                        </div>
                     ),
                 },
             ],
@@ -67,6 +75,20 @@ class Task extends React.Component {
             console.log("this.data", copyData);
             this.setState({data: copyData})
         });
+    }
+
+    completeTask(id) {
+        completeTaskById(id).then(res => {
+            console.log(res);
+            message.info('任务完成').then(r => "任务完成接口失败");
+        });
+    }
+
+    deleteTask(id) {
+        deleteTaskById(id).then(res => {
+            console.log(res);
+            message.info('任务删除成功').then(r => "任务删除失败");
+        })
     }
 
     render() {
