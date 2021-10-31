@@ -81,3 +81,6 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - [react router 从登录页面跳转到主页面](https://blog.csdn.net/chenqk_123/article/details/98733761)
 - [使用React的this.props.history.push()报错解决方案](https://segmentfault.com/a/1190000022272003)
 - [关于withRouter的原理和用法](https://juejin.cn/post/6883401625256329224)
+
+### 请求与数据刷新
+- [React - uncaught TypeError: Cannot read property 'setState' of undefined](https://stackoverflow.com/questions/32317154/react-uncaught-typeerror-cannot-read-property-setstate-of-undefined)
