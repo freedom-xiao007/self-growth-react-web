@@ -59,11 +59,11 @@ export class TaskGroupListView extends React.Component {
         return (
             <div align="left">
                 <Space>
-                    <Input defaultValue={name} bordered={false} onPressEnter={modifyGroup}/>
-                    <label>详情：{description}</label>
+                    {/*<h1><Input defaultValue={name} bordered={false} onPressEnter={modifyGroup}/></h1>*/}
+                    <h1>{name}</h1>
+                    <h4><label>详情：{description}</label></h4>
                     <label>周期：{cycle}</label>
                     <label>标签：{label}</label>
-                    <label>学习类型：{learnType}</label>
                     <AddTaskDialog value={name}/>
                     <Button type="primary" icon={<DeleteOutlined />} size={size} onClick={deleteGroup}>
                         删除分组
@@ -73,5 +73,3 @@ export class TaskGroupListView extends React.Component {
         );
     }
 }
-
-export default TaskGroupListView;

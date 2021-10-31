@@ -1,23 +1,55 @@
-import {List} from 'antd';
+import {List, Space, Table} from 'antd';
 import React from "react";
-import TaskGroupListView from "./TaskGroupListView";
-import TaskDetail from "./TaskDetail";
 import "../../api/taskRequest"
 import {getTaskListByGroup} from "../../api/taskRequest";
 import AddGroupDialog from "./AddGroupDialog";
 import { withRouter } from 'react-router-dom'
+import {TaskGroupListView} from "./TaskGroupListView";
 
 class Task extends React.Component {
     constructor(props) {
         super(props);
-        this.data = [
-            {
-                "group": "taskGroup",
-                "taskList": [
-                    "task detail"
-                ]
-            }
-        ];
+        this.state = {
+            data: [
+                {
+                    "group": "taskGroup",
+                    "taskList": [
+                        "task detail"
+                    ]
+                }
+            ],
+            columnsOfTask: [
+                {
+                    title: '名称',
+                    dataIndex: 'name',
+                    key: 'name',
+                },
+                {
+                    title: '描述',
+                    dataIndex: 'description',
+                    key: 'description',
+                },
+                {
+                    title: '标签',
+                    dataIndex: 'label',
+                    key: 'label',
+                },
+                {
+                    title: '完成时间',
+                    dataIndex: 'completeDate',
+                    key: 'completeDate',
+                },
+                {
+                    title: 'Action',
+                    key: 'action',
+                    render: (text, record) => (
+                        <Space size="middle">
+                            <a>Delete</a>
+                        </Space>
+                    ),
+                },
+            ],
+        }
     }
 
     componentDidMount() {
@@ -32,9 +64,8 @@ class Task extends React.Component {
                     "taskList": resData[index]["tasks"],
                 }
             }
-            this.data = copyData;
-            console.log("this.data", this.data);
-            this.forceUpdate();
+            console.log("this.data", copyData);
+            this.setState({data: copyData})
         });
     }
 
@@ -46,17 +77,10 @@ class Task extends React.Component {
                 <List
                     size="large"
                     bordered
-                    dataSource={this.data}
+                    dataSource={this.state.data}
                     renderItem={item => <List.Item>
-                        <List
-                            size="large"
-                            header={<TaskGroupListView value={item.group}/>}
-                            bordered
-                            dataSource={item.taskList}
-                            renderItem={item => <List.Item>
-                                <TaskDetail value={item}/>
-                            </List.Item>}
-                        />
+                        <TaskGroupListView value={item.group}/>
+                        <Table dataSource={item.taskList} columns={this.state.columnsOfTask} />;
                     </List.Item>}
                 />
             </div>
