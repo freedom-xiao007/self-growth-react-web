@@ -17,6 +17,8 @@ class Nav extends React.Component {
             this.props.history.push("/task");
         } else if (e.key === "home") {
             this.props.history.push("/home");
+        } else if (e.key === "dayStatistics") {
+            this.props.history.push("/dayStatistics")
         }
     };
 
@@ -39,7 +41,7 @@ class Nav extends React.Component {
                         <Menu.Item key="notCompleteTask">未完成任务</Menu.Item>
                     </Menu.ItemGroup>
                     <Menu.ItemGroup title="数据观星">
-                        <Menu.Item key="day">日</Menu.Item>
+                        <Menu.Item key="dayStatistics">日</Menu.Item>
                         <Menu.Item key="week">周</Menu.Item>
                         <Menu.Item key="month">月</Menu.Item>
                         <Menu.Item key="year">年</Menu.Item>

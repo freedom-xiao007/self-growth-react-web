@@ -6,6 +6,7 @@ import Nav from "./component/Nav";
 import history from './route/History'
 import Home from "./component/Home";
 import Task from "./component/task/Task";
+import {DayStatistics} from "./component/task/DayStatistics";
 
 const App = () => (
     <div className="App">
@@ -14,6 +15,7 @@ const App = () => (
             <Route exact path="/" component={Login} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/task" component={Task} />
+            <Route exact path="/dayStatistics" component={DayStatistics} />
         </Router>
     </div>
 );

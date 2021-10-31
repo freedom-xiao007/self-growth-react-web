@@ -51,3 +51,10 @@ export function modifyGroupById(group) {
         data: group,
     })
 }
+
+export function dayTaskStatistics(timestamp) {
+    return request({
+        url: "/v1/task/dayStatistics?timestamp=" + timestamp,
+        method: "get",
+    })
+}
