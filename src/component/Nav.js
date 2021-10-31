@@ -14,11 +14,13 @@ class Nav extends React.Component {
         console.log('click ', e);
         this.setState({ current: e.key });
         if (e.key === "task") {
-            this.props.history.push("/task");
+            this.props.history.push("/web/task");
         } else if (e.key === "home") {
-            this.props.history.push("/home");
+            this.props.history.push("/web/home");
         } else if (e.key === "dayStatistics") {
-            this.props.history.push("/dayStatistics")
+            this.props.history.push("/web/dayStatistics")
+        } else {
+            this.props.history.push("/web")
         }
     };
 
