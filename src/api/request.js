@@ -4,7 +4,7 @@ import { getLoginUserToken } from "../redux/UserInfo";
 // create an axios instance
 const service = axios.create({
     //   baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
-    baseURL: '这里为你的请求ip',
+    baseURL: 'http://127.0.0.1:8080',
     // withCredentials: true, // 跨域请求时发送 cookies
     timeout: 60000, // request timeout
     headers: {
