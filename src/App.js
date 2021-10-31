@@ -6,7 +6,7 @@ import Nav from "./component/Nav";
 import history from './route/History'
 import Home from "./component/Home";
 import Task from "./component/task/Task";
-import {DayStatistics} from "./component/task/DayStatistics";
+import {DayStatistics} from "./component/statistics/DayStatistics";
 
 const App = () => (
     <div className="App">
