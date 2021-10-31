@@ -12,10 +12,10 @@ const App = () => (
     <div className="App">
         <Router history={history}>
             <Nav/>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/home" component={Home} />
-            <Route exact path="/task" component={Task} />
-            <Route exact path="/dayStatistics" component={DayStatistics} />
+            <Route exact path="/web" component={Login} />
+            <Route exact path="/web/home" component={Home} />
+            <Route exact path="/web/task" component={Task} />
+            <Route exact path="/web/dayStatistics" component={DayStatistics} />
         </Router>
     </div>
 );
