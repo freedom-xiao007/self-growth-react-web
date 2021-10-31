@@ -52,9 +52,9 @@ export function modifyGroupById(group) {
     })
 }
 
-export function dayTaskStatistics(timestamp) {
+export function dayTaskStatistics(timestamp, refresh) {
     return request({
-        url: "/v1/task/dayStatistics?timestamp=" + timestamp,
+        url: "/v1/task/dayStatistics?timestamp=" + timestamp + "&refresh=" + refresh,
         method: "get",
     })
 }

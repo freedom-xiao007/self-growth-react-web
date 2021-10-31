@@ -1,7 +1,7 @@
 import {Button, DatePicker, List, Modal, Space, Table, Timeline} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
-import {dayTaskStatistics} from "../../api/taskRequest";
+import {dayTaskStatistics, getTaskListByGroup} from "../../api/taskRequest";
 import {AddGroup} from "../task/AddGroup";
 import {PlusOutlined} from "@ant-design/icons";
 
@@ -83,14 +83,14 @@ export class DayStatistics extends React.Component {
                     key: 'action',
                     render: (text, record) => (
                         <div>
-                            <Button type="primary" icon={<PlusOutlined />} size="large" onClick={this.showModal}>
+                            <Button type="primary" icon={<PlusOutlined />} size="large" onClick={this.showModal.bind(this, record.dates)}>
                                 时间点历史
                             </Button>
                             <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
                                 <List
                                     header={<div>应用活动历史记录</div>}
                                     bordered
-                                    dataSource={record.dates}
+                                    dataSource={this.state.dateList}
                                     renderItem={item => (
                                         <List.Item>
                                             <p>{item}</p>
@@ -114,6 +114,7 @@ export class DayStatistics extends React.Component {
             ],
 
             isModalVisible: false,
+            dateList: [],
         };
 
         this.onChange = this.onChange.bind(this);
@@ -122,8 +123,19 @@ export class DayStatistics extends React.Component {
         this.handleCancel = this.handleCancel.bind(this);
     }
 
-    showModal = () => {
-        this.setState({isModalVisible: true})
+    componentDidMount() {
+        let timestamp = parseInt(new Date().getTime() / 1000);
+        console.log(timestamp);
+        dayTaskStatistics(timestamp, true).then(res => {
+            console.log(res.data)
+            this.setState({dataSourceOfTask: res.data["completeTaskLog"],
+                dataSourceOfActivity: res.data["activityLog"],})
+        })
+    }
+
+    showModal(dateList) {
+        console.log(dateList);
+        this.setState({isModalVisible: true, dateList: dateList});
     };
 
     handleOk = () => {
@@ -137,7 +149,7 @@ export class DayStatistics extends React.Component {
     onChange(date, dateString) {
         let timestamp = new Date(dateString).getTime() / 1000;
         console.log(date, dateString, timestamp);
-        dayTaskStatistics(timestamp).then(res => {
+        dayTaskStatistics(timestamp, false).then(res => {
             console.log(res.data)
             this.setState({dataSourceOfTask: res.data["completeTaskLog"],
                 dataSourceOfActivity: res.data["activityLog"],})
