@@ -1,5 +1,5 @@
 import {Form, Input, Button, message, Select} from 'antd';
-import {addNewTask, addTaskGroup} from "../../api/taskRequest";
+import {addNewTask} from "../../api/taskRequest";
 import {Option} from "antd/es/mentions";
 
 export const AddTask = (groupName) => {

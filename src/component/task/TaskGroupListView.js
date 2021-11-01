@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Input, message, Space} from "antd";
+import {Button, message, Space} from "antd";
 import {DeleteOutlined} from "@ant-design/icons";
 import {AddTaskDialog} from "./AddTaskDialog";
 import {deleteTaskGroupByName, modifyGroupById} from "../../api/taskRequest";
@@ -28,18 +28,12 @@ export class TaskGroupListView extends React.Component {
             "daily" : "日常",
             "other" : "其他",
         };
-        let learnTypeMap = {
-            0 : "输入",
-            1 : "输出",
-        };
 
-        let group = this.props.value;
         let id = this.props.value["id"];
         let name = this.props.value["name"];
         let cycle = cycleMap[this.props.value["cycleType"]];
         let description = this.props.value["description"];
         let label = labelMap[this.props.value["label"]]
-        let learnType = learnTypeMap[this.props.value["learnType"]];
 
         function deleteGroup() {
             deleteTaskGroupByName(name).then(res => {
@@ -59,7 +53,6 @@ export class TaskGroupListView extends React.Component {
         return (
             <div align="left">
                 <Space>
-                    {/*<h1><Input defaultValue={name} bordered={false} onPressEnter={modifyGroup}/></h1>*/}
                     <h1>{name}</h1>
                     <h4><label>详情：{description}</label></h4>
                     <label>周期：{cycle}</label>

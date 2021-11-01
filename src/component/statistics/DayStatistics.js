@@ -1,8 +1,7 @@
 import {Button, DatePicker, List, Modal, Space, Table, Timeline} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
-import {dayTaskStatistics, getTaskListByGroup} from "../../api/taskRequest";
-import {AddGroup} from "../task/AddGroup";
+import {dayTaskStatistics} from "../../api/taskRequest";
 import {PlusOutlined} from "@ant-design/icons";
 
 export class DayStatistics extends React.Component {
