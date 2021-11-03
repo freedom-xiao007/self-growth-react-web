@@ -19,6 +19,8 @@ class Nav extends React.Component {
             this.props.history.push("/web/home");
         } else if (e.key === "dayStatistics") {
             this.props.history.push("/web/dayStatistics")
+        } else if (e.key === "activity") {
+            this.props.history.push("/activity")
         } else {
             this.props.history.push("/web")
         }
@@ -49,6 +51,9 @@ class Nav extends React.Component {
                         <Menu.Item key="year">年</Menu.Item>
                     </Menu.ItemGroup>
                 </SubMenu>
+                <Menu.Item key="activity" icon={<AppstoreOutlined />}>
+                    活动
+                </Menu.Item>
                 <Menu.Item key="alipay">
                     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
                         ant.design - Link
