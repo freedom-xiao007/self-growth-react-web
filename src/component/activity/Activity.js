@@ -1,32 +1,26 @@
-import {Button, DatePicker, List, Modal, Space, Table, Timeline} from 'antd';
+import {Button, DatePicker, List, Modal, Pagination, Space, Table, Timeline} from 'antd';
 import React from "react";
-import "../../api/taskRequest"
-import {dayTaskStatistics} from "../../api/taskRequest";
+import {activityHistory} from "../../api/ActivityRequest";
 
 export class Activity extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            columnsOfTask: [
+            columns: [
                 {
-                    title: '名称',
-                    dataIndex: 'name',
-                    key: 'name',
+                    title: '活动',
+                    dataIndex: 'activity',
+                    key: 'activity',
                 },
                 {
-                    title: '描述',
-                    dataIndex: 'description',
-                    key: 'description',
+                    title: '应用',
+                    dataIndex: 'application',
+                    key: 'application',
                 },
                 {
-                    title: '标签',
-                    dataIndex: 'label',
-                    key: 'label',
-                },
-                {
-                    title: '完成时间',
-                    dataIndex: 'completeDate',
-                    key: 'completeDate',
+                    title: '日期',
+                    dataIndex: 'date',
+                    key: 'date',
                 },
                 {
                     title: 'Action',
@@ -39,62 +33,60 @@ export class Activity extends React.Component {
                 },
             ],
 
-            dataSourceOfTask: [
+            dataSource: [
                 {
-                    completeDate: "2021-10-30T12:00:30.035Z",
-                    configId: "617d092b9831fbcb2fdc9223",
-                    created_at: "2021-10-30T12:00:30.035Z",
-                    cycleType: 4,
-                    description: "无",
-                    id: "617d33de4b0feffed8ec7e06",
-                    label: "learn",
-                    name: "后端修改任务接口",
-                    type: 1,
-                    updated_at: "2021-10-30T12:00:30.035Z",
+                    activity: "\"com.miui.home/com.miui.home.launcher.Launcher\"",
+                    application: "",
+                    created_at: "2021-11-03T13:48:25.405Z",
+                    date: "2021-11-03T21:48:25.405+08:00",
+                    id: "6182932967970eecca5a0d61",
+                    updated_at: "2021-11-03T13:48:25.405Z",
                     userName: "1243925457@qq.com",
                 },
             ],
 
-            isModalVisible: false,
-            dateList: [],
+            pageIndex: 0,
+            pageSize: 50,
+            total: 100,
         };
 
-        this.onChange = this.onChange.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.handleOk = this.handleOk.bind(this);
-        this.handleCancel = this.handleCancel.bind(this);
+        this.changePage = this.changePage.bind(this);
     }
 
     componentDidMount() {
-        let timestamp = parseInt(new Date().getTime() / 1000);
-        console.log(timestamp);
-        dayTaskStatistics(timestamp, true).then(res => {
-            console.log(res.data)
-            this.setState({dataSourceOfTask: res.data["completeTaskLog"],
-                dataSourceOfActivity: res.data["activityLog"],})
+        let params = {
+            "activity": "",
+            "startTimeStamp": "0",
+            "endTimeStamp": "0",
+            "pageIndex": 0,
+            "pageSize": this.state.pageSize,
+        };
+        activityHistory(params).then(res => {
+            console.log(res);
+            this.setState({dataSource: res.data["data"], total: res.data["total"]})
         })
     }
 
-    showModal(dateList) {
-        console.log(dateList);
-        this.setState({isModalVisible: true, dateList: dateList});
-    };
-
-    handleOk = () => {
-        this.setState({isModalVisible: false})
-    };
-
-    handleCancel = () => {
-        this.setState({isModalVisible: false})
-    };
-
-    onChange(date, dateString) {
-        let timestamp = new Date(dateString).getTime() / 1000;
-        console.log(date, dateString, timestamp);
-        dayTaskStatistics(timestamp, true).then(res => {
-            console.log(res.data)
-            this.setState({dataSourceOfTask: res.data["completeTaskLog"],
-                dataSourceOfActivity: res.data["activityLog"],})
+    changePage(page, pageSize) {
+        console.log(page, pageSize);
+        if (page === this.state.pageIndex) {
+            page = page + 1;
+        }
+        let params = {
+            "activity": "",
+            "startTimeStamp": "0",
+            "endTimeStamp": "0",
+            "pageIndex": page,
+            "pageSize": pageSize,
+        };
+        activityHistory(params).then(res => {
+            console.log(res);
+            this.setState({
+                dataSource: res.data["data"],
+                total: res.data["total"],
+                pageSize: pageSize,
+                pageIndex: page,
+            })
         })
     }
 
@@ -103,8 +95,12 @@ export class Activity extends React.Component {
             <div align="left">
                 <DatePicker onChange={this.onChange} />
 
-                <h1>已完成任务列表概览</h1>
-                <Table dataSource={this.state.dataSourceOfTask} columns={this.state.columnsOfTask} />;
+                <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>;
+                <Pagination showQuickJumper
+                            current={this.state.pageIndex}
+                            total={this.state.total}
+                            pageSize={this.state.pageSize}
+                            onChange={this.changePage} />
             </div>
         );
     }

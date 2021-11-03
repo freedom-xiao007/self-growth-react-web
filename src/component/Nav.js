@@ -20,7 +20,7 @@ class Nav extends React.Component {
         } else if (e.key === "dayStatistics") {
             this.props.history.push("/web/dayStatistics")
         } else if (e.key === "activity") {
-            this.props.history.push("/activity")
+            this.props.history.push("/web/activity")
         } else {
             this.props.history.push("/web")
         }
