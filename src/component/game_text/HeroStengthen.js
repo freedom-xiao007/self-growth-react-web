@@ -1,7 +1,7 @@
-import {Button, Card, Col, DatePicker, List, message, Modal, Pagination, Row, Space, Table, Tag, Timeline} from 'antd';
+import {Button, Card, Col, Row, Space, Tag} from 'antd';
 import React from "react";
-import {gameHeroRound, gameOwnHeroes, gameUserInfo, heroes} from "../../api/HeroRequest";
-import {MinusOutlined, PlusOutlined, UngroupOutlined} from "@ant-design/icons";
+import {gameOwnHeroes, gameUserInfo, modifyOwnHeroProperty} from "../../api/HeroRequest";
+import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
 
 export class HeroStrengthen extends React.Component {
     constructor(props) {
@@ -35,6 +35,10 @@ export class HeroStrengthen extends React.Component {
             spirit: 0,
             strength: 0,
         };
+
+        this.reduceProperty = this.reduceProperty.bind(this);
+        this.increaseProperty = this.increaseProperty.bind(this);
+        this.modifyProperty = this.modifyProperty.bind(this);
     }
 
     componentDidMount() {
@@ -61,6 +65,25 @@ export class HeroStrengthen extends React.Component {
         })
     }
 
+    reduceProperty(hero, property) {
+        this.modifyProperty(hero, property, -1);
+    }
+
+    increaseProperty(hero, property) {
+        this.modifyProperty(hero, property, 1);
+    }
+
+    modifyProperty(hero, property, type) {
+        modifyOwnHeroProperty({"hero": hero, "property": property, "type": type}).then(res => {
+            console.log(res.data);
+
+            gameUserInfo().then(res => {
+                console.log(res.data);
+                this.setState({spirit: res.data.spirit, strength: res.data.strength})
+            })
+        })
+    }
+
     render() {
         return (
             <div className="site-card-wrapper" align="left">
@@ -80,10 +103,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.spirit}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "spirit")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "spirit")}
                                                     size="small">
                                             </Button>
 
@@ -91,10 +116,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.spiritAttack}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "spiritAttack")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "spiritAttack")}
                                                     size="small">
                                             </Button>
                                         </Space>
@@ -104,10 +131,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.spiritDefence}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "spiritDefence")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "spiritDefence")}
                                                     size="small">
                                             </Button>
 
@@ -115,10 +144,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.bleed}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "bleed")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "bleed")}
                                                     size="small">
                                             </Button>
                                         </Space>
@@ -128,10 +159,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.strong}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "strong")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "strong")}
                                                     size="small">
                                             </Button>
 
@@ -139,10 +172,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.shooting}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "shooting")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "shooting")}
                                                     size="small">
                                             </Button>
                                         </Space>
@@ -152,10 +187,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.attackSpeed}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "attackSpeed")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "attackSpeed")}
                                                     size="small">
                                             </Button>
 
@@ -163,10 +200,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.dodge}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "dodge")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "dodge")}
                                                     size="small">
                                             </Button>
                                         </Space>
@@ -176,10 +215,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.defence}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "defence")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "defence")}
                                                     size="small">
                                             </Button>
 
@@ -187,10 +228,12 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.moveSpeed}</label>
                                             <Button type="primary"
                                                     icon={<MinusOutlined />}
+                                                    onClick={this.reduceProperty.bind(this, item.name_py, "moveSpeed")}
                                                     size="small">
                                             </Button>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "moveSpeed")}
                                                     size="small">
                                             </Button>
                                         </Space>
@@ -200,9 +243,10 @@ export class HeroStrengthen extends React.Component {
                                             <label>{item.chip}</label>
 
                                             <Tag color="magenta">星级：</Tag>
-                                            <label>{item.defence}</label>
+                                            <label>{item.level}</label>
                                             <Button type="primary"
                                                     icon={<PlusOutlined />}
+                                                    onClick={this.increaseProperty.bind(this, item.name_py, "level")}
                                                     size="small">
                                             </Button>
                                         </Space>

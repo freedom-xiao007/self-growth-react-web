@@ -29,3 +29,11 @@ export function gameOwnHeroes() {
         method: "get",
     });
 }
+
+export function modifyOwnHeroProperty(params) {
+    return request({
+        url: "/v1/hero/modifyOwnHeroProperty",
+        method: "post",
+        params: params,
+    });
+}
