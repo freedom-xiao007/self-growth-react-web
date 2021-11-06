@@ -22,3 +22,10 @@ export function gameHeroRound() {
         method: "post",
     });
 }
+
+export function gameOwnHeroes() {
+    return request({
+        url: "/v1/hero/ownHeroes",
+        method: "get",
+    });
+}

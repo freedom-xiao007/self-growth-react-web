@@ -10,6 +10,7 @@ import {DayStatistics} from "./component/statistics/DayStatistics";
 import {Activity} from "./component/activity/Activity";
 import {Achievement} from "./component/game_text/Achievement";
 import {HeroSelect} from "./component/game_text/HeroSelect";
+import {HeroStrengthen} from "./component/game_text/HeroStengthen";
 
 const App = () => (
     <div className="App">
@@ -22,6 +23,7 @@ const App = () => (
             <Route exact path="/web/activity" component={Activity} />
             <Route exact path="/web/game/text/achievement" component={Achievement} />
             <Route exact path="/web/game/text/heroRound" component={HeroSelect} />
+            <Route exact path="/web/game/text/heroStrengthen" component={HeroStrengthen} />
         </Router>
     </div>
 );
