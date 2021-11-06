@@ -21,6 +21,8 @@ class Nav extends React.Component {
             this.props.history.push("/web/dayStatistics")
         } else if (e.key === "activity") {
             this.props.history.push("/web/activity")
+        } else if (e.key === "dayAchievement") {
+            this.props.history.push("/web/game/text/achievement")
         } else {
             this.props.history.push("/web")
         }
