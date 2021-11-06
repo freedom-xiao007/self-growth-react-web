@@ -3,7 +3,7 @@ import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {BookOutlined, CheckOutlined, DeleteOutlined, UngroupOutlined} from "@ant-design/icons";
 import {achievementGet, achievementImport, achievementSync} from "../../api/AchievementRequest";
-import {heroes} from "../../api/HeroRequest";
+import {gameHeroRound, gameUserInfo, heroes} from "../../api/HeroRequest";
 
 export class HeroSelect extends React.Component {
     constructor(props) {
@@ -12,8 +12,8 @@ export class HeroSelect extends React.Component {
             columns: [
                 {
                     title: '名称',
-                    dataIndex: 'name',
-                    key: 'name',
+                    dataIndex: 'name_zw',
+                    key: 'name_zw',
                 },
                 {
                     title: 'Action',
@@ -35,7 +35,7 @@ export class HeroSelect extends React.Component {
             dataSource: [
                 {
                     "id": "000000000000000000000000",
-                    "name": "test",
+                    "name_zw": "test",
                     "created_at": "0001-01-01T00:00:00Z",
                     "updated_at": "0001-01-01T00:00:00Z",
                     "date": "2021-11-06",
@@ -53,9 +53,10 @@ export class HeroSelect extends React.Component {
     }
 
     componentDidMount() {
-        // gameUserInfo().then(res => {
-        //
-        // })
+        gameUserInfo().then(res => {
+            console.log(res.data);
+            this.setState({reiki: res.data.reiki})
+        })
 
         heroes().then(res => {
             console.log(res.data);
@@ -64,7 +65,9 @@ export class HeroSelect extends React.Component {
     }
 
     heroRound() {
-
+        gameHeroRound().then(res => {
+            message.info(res.data).then(r => res.data);
+        })
     }
 
     render() {
@@ -72,10 +75,10 @@ export class HeroSelect extends React.Component {
             <div align="left">
                 <Space>
                     <label>灵气：</label><strong>{this.state.reiki}</strong>
-                    <Button icon={<UngroupOutlined />} onClick={this.heroRound}>抽取</Button>
+                    <Button icon={<UngroupOutlined />} onClick={this.heroRound}>抽取,消耗100灵气</Button>
                 </Space>
 
-                <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>;
+                <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>
             </div>
         );
     }
