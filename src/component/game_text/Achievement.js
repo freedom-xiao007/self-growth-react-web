@@ -2,7 +2,7 @@ import {Button, DatePicker, List, Modal, Pagination, Space, Table, Timeline} fro
 import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
-import {achievementGet} from "../../api/AchievementRequest";
+import {achievementGet, achievementSync} from "../../api/AchievementRequest";
 
 export class Achievement extends React.Component {
     constructor(props) {
@@ -43,14 +43,14 @@ export class Achievement extends React.Component {
                                 <Button type="primary"
                                         icon={<Icon type="sync" />}
                                         size="small"
-                                        onClick={this.refreshAchievement.bind(this, record.id)}>
+                                        onClick={this.refreshAchievement.bind(this, record.date)}>
                                     数据同步
                                 </Button>
                                 <Button
                                     type="primary"
                                     icon={<DeleteOutlined />}
                                     size="small"
-                                    disabled={!record.isImport}
+                                    disabled={record.isImport === "true"}
                                     onClick={this.importAchievement.bind(this, record.id)}>
                                     导入
                                 </Button>
@@ -74,39 +74,53 @@ export class Achievement extends React.Component {
             ],
         };
 
+        this.beforePage = this.beforePage.bind(this);
         this.nextPage = this.nextPage.bind(this);
         this.refreshAchievement = this.refreshAchievement.bind(this);
         this.importAchievement = this.importAchievement.bind(this);
+        this.getAchievementList = this.getAchievementList.bind(this);
         this.timestamp = parseInt(new Date().getTime() / 1000);
     }
 
     componentDidMount() {
-        let timestamp = parseInt(new Date().getTime() / 1000);
-        let params = {
-            "timestamp": timestamp,
-        };
-        achievementGet(params).then(res => {
-            console.log(res.data);
-            this.setState({dataSource: res.data, timestamp: timestamp})
-        })
+        this.getAchievementList(new Date());
+        this.setState({timestamp: parseInt( new Date().getTime() / 1000)})
+    }
+
+    beforePage() {
+        let current = new Date(this.state.timestamp * 1000);
+        current.setDate(current.getDate() + 10);
+        this.getAchievementList(current);
+        this.setState({timestamp: parseInt(current.getTime() / 1000)})
     }
 
     nextPage() {
         let current = new Date(this.state.timestamp * 1000);
         current.setDate(current.getDate() - 10);
-        let timestamp = current.getTime() / 1000;
+        this.getAchievementList(current);
+        this.setState({timestamp: parseInt(current.getTime() / 1000)})
+    }
+
+    refreshAchievement(dateStr) {
+        let date = new Date(dateStr);
         let params = {
-            "timestamp": timestamp,
+            "timestamp": parseInt(date.getTime() / 1000),
         };
-        console.log(this.state.timestamp, current, params);
-        achievementGet(params).then(res => {
-            console.log(res.data);
-            this.setState({dataSource: res.data, timestamp: timestamp})
+        achievementSync(params).then(res => {
+            console.log(res);
+            this.getAchievementList(new Date(this.state.timestamp * 1000));
         })
     }
 
-    refreshAchievement(id) {
-
+    getAchievementList(date) {
+        let timestamp = parseInt(date.getTime() / 1000);
+        let params = {
+            "timestamp": timestamp,
+        };
+        achievementGet(params).then(res => {
+            console.log(res.data);
+            this.setState({dataSource: res.data})
+        })
     }
 
     importAchievement(id) {
@@ -117,6 +131,7 @@ export class Achievement extends React.Component {
         return (
             <div align="left">
                 <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>;
+                <Button icon="left" onClick={this.beforePage}>上一页</Button>
                 <Button icon="right" onClick={this.nextPage}>下一页</Button>
             </div>
         );

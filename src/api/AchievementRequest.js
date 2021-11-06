@@ -7,3 +7,11 @@ export function achievementGet(params) {
         params: params,
     });
 }
+
+export function achievementSync(params) {
+    return request({
+        url: "/v1/achievement/sync",
+        method: "post",
+        params: params,
+    });
+}
