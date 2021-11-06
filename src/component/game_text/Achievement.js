@@ -2,6 +2,7 @@ import {Button, DatePicker, List, Modal, Pagination, Space, Table, Timeline} fro
 import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
+import {achievementGet} from "../../api/AchievementRequest";
 
 export class Achievement extends React.Component {
     constructor(props) {
@@ -73,41 +74,35 @@ export class Achievement extends React.Component {
             ],
         };
 
-        this.changePage = this.changePage.bind(this);
-        this.timestamp = new Date().getTime() / 1000;
+        this.nextPage = this.nextPage.bind(this);
+        this.refreshAchievement = this.refreshAchievement.bind(this);
+        this.importAchievement = this.importAchievement.bind(this);
+        this.timestamp = parseInt(new Date().getTime() / 1000);
     }
 
     componentDidMount() {
+        let timestamp = parseInt(new Date().getTime() / 1000);
         let params = {
-            "timestamp": this.state.timestamp,
+            "timestamp": timestamp,
         };
-        // activityHistory(params).then(res => {
-        //     console.log(res);
-        //     this.setState({dataSource: res.data["data"], total: res.data["total"]})
-        // })
+        achievementGet(params).then(res => {
+            console.log(res.data);
+            this.setState({dataSource: res.data, timestamp: timestamp})
+        })
     }
 
-    changePage(page, pageSize) {
-        // console.log(page, pageSize);
-        // if (page === this.state.pageIndex) {
-        //     page = page + 1;
-        // }
-        // let params = {
-        //     "activity": "",
-        //     "startTimeStamp": "0",
-        //     "endTimeStamp": "0",
-        //     "pageIndex": page,
-        //     "pageSize": pageSize,
-        // };
-        // activityHistory(params).then(res => {
-        //     console.log(res);
-        //     this.setState({
-        //         dataSource: res.data["data"],
-        //         total: res.data["total"],
-        //         pageSize: pageSize,
-        //         pageIndex: page,
-        //     })
-        // })
+    nextPage() {
+        let current = new Date(this.state.timestamp * 1000);
+        current.setDate(current.getDate() - 10);
+        let timestamp = current.getTime() / 1000;
+        let params = {
+            "timestamp": timestamp,
+        };
+        console.log(this.state.timestamp, current, params);
+        achievementGet(params).then(res => {
+            console.log(res.data);
+            this.setState({dataSource: res.data, timestamp: timestamp})
+        })
     }
 
     refreshAchievement(id) {
@@ -122,7 +117,7 @@ export class Achievement extends React.Component {
         return (
             <div align="left">
                 <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>;
-                <Button icon="right">下一页</Button>
+                <Button icon="right" onClick={this.nextPage}>下一页</Button>
             </div>
         );
     }
