@@ -1,4 +1,4 @@
-import {Button, DatePicker, List, Modal, Pagination, Space, Table, Timeline} from 'antd';
+import {Button, DatePicker, List, message, Modal, Pagination, Space, Table, Timeline} from 'antd';
 import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
@@ -109,6 +109,7 @@ export class Achievement extends React.Component {
         achievementSync(params).then(res => {
             console.log(res);
             this.getAchievementList(new Date(this.state.timestamp * 1000));
+            message.info("同步成功").then(r => "同步失败");
         })
     }
 
