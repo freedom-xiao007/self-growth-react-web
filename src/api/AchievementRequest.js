@@ -15,3 +15,11 @@ export function achievementSync(params) {
         params: params,
     });
 }
+
+export function achievementImport(params) {
+    return request({
+        url: "/v1/achievement/import",
+        method: "post",
+        params: params,
+    });
+}

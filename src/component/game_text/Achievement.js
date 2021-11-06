@@ -2,7 +2,7 @@ import {Button, DatePicker, List, message, Modal, Pagination, Space, Table, Time
 import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
-import {achievementGet, achievementSync} from "../../api/AchievementRequest";
+import {achievementGet, achievementImport, achievementSync} from "../../api/AchievementRequest";
 
 export class Achievement extends React.Component {
     constructor(props) {
@@ -101,18 +101,6 @@ export class Achievement extends React.Component {
         this.setState({timestamp: parseInt(current.getTime() / 1000)})
     }
 
-    refreshAchievement(dateStr) {
-        let date = new Date(dateStr);
-        let params = {
-            "timestamp": parseInt(date.getTime() / 1000),
-        };
-        achievementSync(params).then(res => {
-            console.log(res);
-            this.getAchievementList(new Date(this.state.timestamp * 1000));
-            message.info("同步成功").then(r => "同步失败");
-        })
-    }
-
     getAchievementList(date) {
         let timestamp = parseInt(date.getTime() / 1000);
         let params = {
@@ -124,8 +112,22 @@ export class Achievement extends React.Component {
         })
     }
 
-    importAchievement(id) {
+    refreshAchievement(dateStr) {
+        let date = new Date(dateStr);
+        let params = {
+            "timestamp": parseInt(date.getTime() / 1000),
+        };
+        achievementSync(params).then(res => {
+            console.log(res);
+            message.info("同步成功").then(r => "同步失败");
+        })
+    }
 
+    importAchievement(id) {
+        achievementImport({"id": id}).then(res => {
+            console.log(res);
+            message.info("导入成功").then(r => "导入失败");
+        })
     }
 
     render() {
