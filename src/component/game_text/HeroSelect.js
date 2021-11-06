@@ -3,6 +3,7 @@ import React from "react";
 import {activityHistory} from "../../api/ActivityRequest";
 import Icon, {BookOutlined, CheckOutlined, DeleteOutlined, UngroupOutlined} from "@ant-design/icons";
 import {achievementGet, achievementImport, achievementSync} from "../../api/AchievementRequest";
+import {heroes} from "../../api/HeroRequest";
 
 export class HeroSelect extends React.Component {
     constructor(props) {
@@ -49,6 +50,17 @@ export class HeroSelect extends React.Component {
         };
 
         this.heroRound = this.heroRound.bind(this);
+    }
+
+    componentDidMount() {
+        // gameUserInfo().then(res => {
+        //
+        // })
+
+        heroes().then(res => {
+            console.log(res.data);
+            this.setState({dataSource: res.data})
+        })
     }
 
     heroRound() {
