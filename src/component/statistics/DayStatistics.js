@@ -1,4 +1,4 @@
-import {Button, DatePicker, List, Modal, Space, Table, Timeline} from 'antd';
+import {Button, DatePicker, List, Modal, Space, Switch, Table, Timeline} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {dayTaskStatistics} from "../../api/taskRequest";
@@ -114,18 +114,20 @@ export class DayStatistics extends React.Component {
 
             isModalVisible: false,
             dateList: [],
+            refreshForce: true,
         };
 
         this.onChange = this.onChange.bind(this);
         this.showModal = this.showModal.bind(this);
         this.handleOk = this.handleOk.bind(this);
         this.handleCancel = this.handleCancel.bind(this);
+        this.refreshChange = this.refreshChange.bind(this);
     }
 
     componentDidMount() {
         let timestamp = parseInt(new Date().getTime() / 1000);
         console.log(timestamp);
-        dayTaskStatistics(timestamp, true).then(res => {
+        dayTaskStatistics(timestamp, this.state.refreshForce).then(res => {
             console.log(res.data)
             this.setState({dataSourceOfTask: res.data["completeTaskLog"],
                 dataSourceOfActivity: res.data["activityLog"],})
@@ -148,17 +150,22 @@ export class DayStatistics extends React.Component {
     onChange(date, dateString) {
         let timestamp = new Date(dateString).getTime() / 1000;
         console.log(date, dateString, timestamp);
-        dayTaskStatistics(timestamp, false).then(res => {
+        dayTaskStatistics(timestamp, this.state.refreshForce).then(res => {
             console.log(res.data)
             this.setState({dataSourceOfTask: res.data["completeTaskLog"],
                 dataSourceOfActivity: res.data["activityLog"],})
         })
     }
 
+    refreshChange(checked) {
+        this.setState({refreshForce: checked})
+    }
+
     render() {
         return (
             <div align="left">
                 <DatePicker onChange={this.onChange} />
+                <Switch checkedChildren="强制刷新" unCheckedChildren="不强制刷新" defaultChecked onChange={this.refreshChange}/>
 
                 <h1>已完成任务列表概览</h1>
                 <Table dataSource={this.state.dataSourceOfTask} columns={this.state.columnsOfTask} />;
