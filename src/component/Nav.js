@@ -54,6 +54,16 @@ class Nav extends React.Component {
                 <Menu.Item key="activity" icon={<AppstoreOutlined />}>
                     活动
                 </Menu.Item>
+                <SubMenu key="game_text" icon={<SettingOutlined />} title="文本游戏">
+                    <Menu.ItemGroup title="成就">
+                        <Menu.Item key="dayAchievement">每日成就</Menu.Item>
+                    </Menu.ItemGroup>
+                    <Menu.ItemGroup title="游戏">
+                        <Menu.Item key="dayProcess">游戏进程</Menu.Item>
+                        <Menu.Item key="heroRound">角色抽取</Menu.Item>
+                        <Menu.Item key="heroStrong">角色强化</Menu.Item>
+                    </Menu.ItemGroup>
+                </SubMenu>
                 <Menu.Item key="alipay">
                     <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
                         ant.design - Link
