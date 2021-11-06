@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getLoginUserToken } from "../redux/UserInfo";
+import {message} from "antd";
 
 // create an axios instance
 const service = axios.create({
@@ -46,12 +47,15 @@ service.interceptors.response.use(
     response => {
         const res = response.data
         if (parseInt(res.code) === 43004 || parseInt(res.code) === 43005) {
-            return Promise.reject('error')
+            console.log(res);
+            message.info("请求失败").then(r => "请求失败");
+            return Promise.reject(res.data.message())
         } else {
             return response.data
         }
     },
     error => {
+        message.info("请求失败").then(r => "请求失败");
         return Promise.reject(error)
     }
 )
