@@ -27,6 +27,8 @@ class Nav extends React.Component {
             this.props.history.push("/web/game/text/heroRound")
         } else if (e.key === "heroStrengthen") {
             this.props.history.push("/web/game/text/heroStrengthen")
+        } else if (e.key === "battleLog") {
+            this.props.history.push("/web/game/text/battleLog")
         } else {
             this.props.history.push("/web")
         }
@@ -65,7 +67,7 @@ class Nav extends React.Component {
                         <Menu.Item key="dayAchievement">每日成就</Menu.Item>
                     </Menu.ItemGroup>
                     <Menu.ItemGroup title="游戏">
-                        <Menu.Item key="dayProcess">游戏进程</Menu.Item>
+                        <Menu.Item key="battleLog">游戏进程</Menu.Item>
                         <Menu.Item key="heroRound">角色抽取</Menu.Item>
                         <Menu.Item key="heroStrengthen">角色强化</Menu.Item>
                     </Menu.ItemGroup>
