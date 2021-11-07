@@ -1,7 +1,6 @@
-import {Button, DatePicker, List, message, Modal, Pagination, Space, Table, Timeline} from 'antd';
+import {Button, message, Space, Table} from 'antd';
 import React from "react";
-import {activityHistory} from "../../api/ActivityRequest";
-import Icon, {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
+import Icon, {DeleteOutlined, LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {achievementGet, achievementImport, achievementSync} from "../../api/AchievementRequest";
 
 export class Achievement extends React.Component {
@@ -134,8 +133,8 @@ export class Achievement extends React.Component {
         return (
             <div align="left">
                 <Table dataSource={this.state.dataSource} columns={this.state.columns} pagination={false}/>;
-                <Button icon="left" onClick={this.beforePage}>上一页</Button>
-                <Button icon="right" onClick={this.nextPage}>下一页</Button>
+                <Button icon={<LeftOutlined />} onClick={this.beforePage}>上一页</Button>
+                <Button icon={<RightOutlined />} onClick={this.nextPage}>下一页</Button>
             </div>
         );
     }
