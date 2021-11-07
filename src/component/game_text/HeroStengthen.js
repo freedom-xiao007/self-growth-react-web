@@ -1,7 +1,8 @@
-import {Button, Card, Col, Row, Space, Tag} from 'antd';
+import {Button, Card, Col, message, Row, Space, Tag} from 'antd';
 import React from "react";
-import {gameOwnHeroes, gameUserInfo, modifyOwnHeroProperty} from "../../api/HeroRequest";
-import {MinusOutlined, PlusOutlined} from "@ant-design/icons";
+import {battleHero, gameOwnHeroes, gameUserInfo, modifyOwnHeroProperty} from "../../api/HeroRequest";
+import {MinusOutlined, PlusOutlined, SlidersOutlined} from "@ant-design/icons";
+import Meta from "antd/es/card/Meta";
 
 export class HeroStrengthen extends React.Component {
     constructor(props) {
@@ -28,6 +29,7 @@ export class HeroStrengthen extends React.Component {
                         spiritDefence: 1,
                         strong: 1,
                         updated_at: "0001-01-01T00:00:00Z",
+                        isBattle: false,
                     }
                 ],
             ],
@@ -40,11 +42,21 @@ export class HeroStrengthen extends React.Component {
         this.increaseProperty = this.increaseProperty.bind(this);
         this.modifyProperty = this.modifyProperty.bind(this);
         this.refreshHeroes = this.refreshHeroes.bind(this);
+        this.battleHero = this.battleHero.bind(this);
     }
 
     componentDidMount() {
         this.refreshHeroes();
     }
+
+    battleHero(hero) {
+        battleHero({"hero": hero}).then(res => {
+            console.log(res.data);
+            message.info('上阵成功').then(r => "上阵失败");
+            this.refreshHeroes();
+        })
+    }
+
 
     reduceProperty(hero, property) {
         this.modifyProperty(hero, property, -1);
@@ -98,7 +110,18 @@ export class HeroStrengthen extends React.Component {
                         <Row gutter={16}>
                             {group.map(item => (
                                 <Col span={8}>
-                                    <Card title={item.name_zw} bordered={false}>
+                                    <Card bordered={true}>
+                                        <Meta
+                                            avatar={<Button type="primary"
+                                                            icon={<SlidersOutlined />}
+                                                            onClick={this.battleHero.bind(this, item.name_py)}
+                                                            size="small">
+                                                        {item.isBattle ? "下阵" : "上阵"}
+                                                    </Button>
+                                                    }
+                                            title={item.name_zw}
+                                        />
+
                                         <Space>
                                             <Tag color="magenta">灵魂力：</Tag>
                                             <label>{item.spirit}</label>

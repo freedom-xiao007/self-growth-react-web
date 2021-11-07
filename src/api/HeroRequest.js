@@ -37,3 +37,11 @@ export function modifyOwnHeroProperty(params) {
         params: params,
     });
 }
+
+export function battleHero(params) {
+    return request({
+        url: "/v1/hero/battleHero",
+        method: "post",
+        params: params,
+    });
+}
