@@ -39,9 +39,29 @@ export class HeroStrengthen extends React.Component {
         this.reduceProperty = this.reduceProperty.bind(this);
         this.increaseProperty = this.increaseProperty.bind(this);
         this.modifyProperty = this.modifyProperty.bind(this);
+        this.refreshHeroes = this.refreshHeroes.bind(this);
     }
 
     componentDidMount() {
+        this.refreshHeroes();
+    }
+
+    reduceProperty(hero, property) {
+        this.modifyProperty(hero, property, -1);
+    }
+
+    increaseProperty(hero, property) {
+        this.modifyProperty(hero, property, 1);
+    }
+
+    modifyProperty(hero, property, type) {
+        modifyOwnHeroProperty({"hero": hero, "property": property, "type": type}).then(res => {
+            console.log(res.data);
+            this.refreshHeroes();
+        })
+    }
+
+    refreshHeroes() {
         gameUserInfo().then(res => {
             console.log(res.data);
             this.setState({spirit: res.data.spirit, strength: res.data.strength})
@@ -62,25 +82,6 @@ export class HeroStrengthen extends React.Component {
                 }
             }
             this.setState({data: groupData})
-        })
-    }
-
-    reduceProperty(hero, property) {
-        this.modifyProperty(hero, property, -1);
-    }
-
-    increaseProperty(hero, property) {
-        this.modifyProperty(hero, property, 1);
-    }
-
-    modifyProperty(hero, property, type) {
-        modifyOwnHeroProperty({"hero": hero, "property": property, "type": type}).then(res => {
-            console.log(res.data);
-
-            gameUserInfo().then(res => {
-                console.log(res.data);
-                this.setState({spirit: res.data.spirit, strength: res.data.strength})
-            })
         })
     }
 
