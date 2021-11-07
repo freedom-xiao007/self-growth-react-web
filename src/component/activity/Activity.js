@@ -46,7 +46,7 @@ export class Activity extends React.Component {
             ],
 
             pageIndex: 0,
-            pageSize: 50,
+            pageSize: 15,
             total: 100,
         };
 
