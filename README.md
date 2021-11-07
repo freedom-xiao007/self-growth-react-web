@@ -70,8 +70,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ## 资源链接
-- [https://ant.design/components/menu-cn/](https://ant.design/components/menu-cn/)
-- [Icon图标](https://3x.ant.design/components/icon-cn/)
+- [ant资源库](https://ant.design/components/divider-cn/)
+- [Icon图标](https://ant.design/components/icon-cn/)
 - [React Hook实战项目（含axios封装，双层路由的使用，redux的使用）](https://www.helloworld.net/p/13OCKmhx2FLe)
 
 ### 路由跳转相关
