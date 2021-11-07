@@ -45,3 +45,11 @@ export function battleHero(params) {
         params: params,
     });
 }
+
+export function battleLog(params) {
+    return request({
+        url: "/v1/hero/battleLog",
+        method: "get",
+        params: params,
+    });
+}
