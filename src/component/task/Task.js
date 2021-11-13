@@ -1,11 +1,11 @@
-import {Button, message, Space, Table, Tabs} from 'antd';
+import {Button, message, Modal, Space, Table, Tabs} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {completeTaskById, deleteTaskById, getTaskListByGroup} from "../../api/taskRequest";
-import AddGroupDialog from "./AddGroupDialog";
 import { withRouter } from 'react-router-dom'
 import {TaskGroupListView} from "./TaskGroupListView";
-import {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
+import {CheckOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {AddGroup} from "./AddGroup";
 
 const { TabPane } = Tabs;
 
@@ -59,10 +59,15 @@ class Task extends React.Component {
                     ),
                 },
             ],
+            showAddGroup: false,
         }
     }
 
     componentDidMount() {
+        this.refreshData();
+    }
+
+    refreshData() {
         getTaskListByGroup().then(res => {
             console.log("getTaskListByGroup", res);
             let copyData = [];
@@ -93,10 +98,28 @@ class Task extends React.Component {
         })
     }
 
+    showModal = () => {
+        this.setState({showAddGroup: true})
+    };
+
+    handleOk = () => {
+        this.setState({showAddGroup: false})
+    };
+
+    handleCancel = () => {
+        this.setState({showAddGroup: false})
+    };
+
     render() {
         return (
             <div align="left">
-                <AddGroupDialog/>
+                <Button type="primary" icon={<PlusOutlined />} size="normal" onClick={this.showModal}>
+                    增加分组
+                </Button>
+
+                <Modal title="增加任务分组" visible={this.state.showAddGroup} onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <AddGroup refresh={() => this.refreshData()} close={() => this.handleOk()}/>
+                </Modal>
 
                 <Tabs defaultActiveKey="1">
                     {
