@@ -124,7 +124,7 @@ class Task extends React.Component {
                     增加分组
                 </Button>
 
-                <Modal title="增加任务分组" visible={this.state.showAddGroup} onOk={this.handleOk} onCancel={this.handleCancel}>
+                <Modal title="增加任务分组" visible={this.state.showAddGroup} footer={null}>
                     <AddGroup refresh={() => this.refreshAndCloseDialog()}/>
                 </Modal>
 
