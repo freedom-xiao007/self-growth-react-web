@@ -1,4 +1,4 @@
-import {Button, List, message, Space, Table, Tabs} from 'antd';
+import {Button, message, Space, Table, Tabs} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {completeTaskById, deleteTaskById, getTaskListByGroup} from "../../api/taskRequest";

@@ -1,8 +1,10 @@
-import {Button, DatePicker, List, Modal, Space, Switch, Table, Timeline} from 'antd';
+import {Button, DatePicker, List, Modal, Space, Switch, Table, Tabs} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {dayTaskStatistics} from "../../api/taskRequest";
 import {PlusOutlined} from "@ant-design/icons";
+
+const { TabPane } = Tabs;
 
 export class DayStatistics extends React.Component {
     constructor(props) {
@@ -167,11 +169,14 @@ export class DayStatistics extends React.Component {
                 <DatePicker onChange={this.onChange} />
                 <Switch checkedChildren="强制刷新" unCheckedChildren="不强制刷新" defaultChecked onChange={this.refreshChange}/>
 
-                <h1>已完成任务列表概览</h1>
-                <Table dataSource={this.state.dataSourceOfTask} columns={this.state.columnsOfTask} />;
-
-                <h1>活动历史记录概览</h1>
-                <Table dataSource={this.state.dataSourceOfActivity} columns={this.state.columnsOfActivity} />;
+                <Tabs defaultActiveKey="1">
+                    <TabPane tab="已完成任务列表概览" key="1">
+                        <Table dataSource={this.state.dataSourceOfTask} columns={this.state.columnsOfTask} />
+                    </TabPane>
+                    <TabPane tab="活动历史记录概览" key="2">
+                        <Table dataSource={this.state.dataSourceOfActivity} columns={this.state.columnsOfActivity} />
+                    </TabPane>
+                </Tabs>
             </div>
         );
     }
