@@ -53,8 +53,7 @@ export class TaskGroupListView extends React.Component {
         return (
             <div align="left">
                 <Space>
-                    <h1>{name}</h1>
-                    <h4><label>详情：{description}</label></h4>
+                    <label>详情：{description}</label>
                     <label>周期：{cycle}</label>
                     <label>标签：{label}</label>
                     <AddTaskDialog value={name}/>

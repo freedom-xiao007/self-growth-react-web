@@ -1,4 +1,4 @@
-import {Button, List, message, Space, Table} from 'antd';
+import {Button, List, message, Space, Table, Tabs} from 'antd';
 import React from "react";
 import "../../api/taskRequest"
 import {completeTaskById, deleteTaskById, getTaskListByGroup} from "../../api/taskRequest";
@@ -6,6 +6,8 @@ import AddGroupDialog from "./AddGroupDialog";
 import { withRouter } from 'react-router-dom'
 import {TaskGroupListView} from "./TaskGroupListView";
 import {CheckOutlined, DeleteOutlined} from "@ant-design/icons";
+
+const { TabPane } = Tabs;
 
 class Task extends React.Component {
     constructor(props) {
@@ -96,15 +98,16 @@ class Task extends React.Component {
             <div align="left">
                 <AddGroupDialog/>
 
-                <List
-                    size="large"
-                    bordered
-                    dataSource={this.state.data}
-                    renderItem={item => <List.Item>
-                        <TaskGroupListView value={item.group}/>
-                        <Table dataSource={item.taskList} columns={this.state.columnsOfTask} />;
-                    </List.Item>}
-                />
+                <Tabs defaultActiveKey="1">
+                    {
+                        this.state.data.map((item, index) => (
+                            <TabPane tab={item.group.name} key={index}>
+                                <TaskGroupListView value={item.group}/>
+                                <Table dataSource={item.taskList} columns={this.state.columnsOfTask} />
+                            </TabPane>
+                        ))
+                    }
+                </Tabs>
             </div>
 
         );
