@@ -125,7 +125,7 @@ export class AddTask extends React.Component {
                     }}
                 >
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        新增
                     </Button>
                 </Form.Item>
             </Form>

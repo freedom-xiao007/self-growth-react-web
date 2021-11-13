@@ -76,7 +76,7 @@ export class TaskGroupListView extends React.Component {
                         增加任务
                     </Button>
 
-                    <Modal title="Basic Modal" visible={this.state.showAddTask} onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <Modal title="Basic Modal" visible={this.state.showAddTask} footer={null}>
                         <AddTask groupName={this.props.value["name"]}
                                  closeDialog={() => this.handleOk()}
                                  refresh={() => this.props.refresh()}/>
