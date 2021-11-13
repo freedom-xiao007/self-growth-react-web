@@ -93,6 +93,7 @@ class Task extends React.Component {
         completeTaskById(id).then(res => {
             console.log(res);
             message.info('任务完成').then(r => "任务完成接口失败");
+            this.refreshData();
         });
     }
 
@@ -100,6 +101,7 @@ class Task extends React.Component {
         deleteTaskById(id).then(res => {
             console.log(res);
             message.info('任务删除成功').then(r => "任务删除失败");
+            this.refreshData();
         })
     }
 
@@ -130,8 +132,10 @@ class Task extends React.Component {
                     {
                         this.state.data.map((item, index) => (
                             <TabPane tab={item.group.name} key={index}>
-                                <TaskGroupListView value={item.group} refresh={() => this.refreshAndCloseDialog()}/>
-                                <Table dataSource={item.taskList} columns={this.state.columnsOfTask} />
+                                <TaskGroupListView value={item.group}
+                                                   refresh={() => this.refreshAndCloseDialog()}/>
+                                <Table dataSource={item.taskList}
+                                       columns={this.state.columnsOfTask} />
                             </TabPane>
                         ))
                     }
