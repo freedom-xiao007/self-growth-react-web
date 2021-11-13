@@ -84,6 +84,11 @@ class Task extends React.Component {
         });
     }
 
+    refreshAndCloseDialog() {
+        this.refreshData();
+        this.handleOk();
+    }
+
     completeTask(id) {
         completeTaskById(id).then(res => {
             console.log(res);
@@ -118,14 +123,14 @@ class Task extends React.Component {
                 </Button>
 
                 <Modal title="增加任务分组" visible={this.state.showAddGroup} onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <AddGroup refresh={() => this.refreshData()} close={() => this.handleOk()}/>
+                    <AddGroup refresh={() => this.refreshAndCloseDialog()}/>
                 </Modal>
 
                 <Tabs defaultActiveKey="1">
                     {
                         this.state.data.map((item, index) => (
                             <TabPane tab={item.group.name} key={index}>
-                                <TaskGroupListView value={item.group}/>
+                                <TaskGroupListView value={item.group} refresh={() => this.refreshAndCloseDialog()}/>
                                 <Table dataSource={item.taskList} columns={this.state.columnsOfTask} />
                             </TabPane>
                         ))

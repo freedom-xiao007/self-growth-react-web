@@ -1,14 +1,28 @@
 import React from "react";
-import {Button, message, Space} from "antd";
-import {DeleteOutlined} from "@ant-design/icons";
-import {AddTaskDialog} from "./AddTaskDialog";
+import {Button, message, Modal, Space} from "antd";
+import {DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {deleteTaskGroupByName, modifyGroupById} from "../../api/taskRequest";
+import {AddTask} from "./AddTask";
 
 export class TaskGroupListView extends React.Component {
-    state = {
-        size: 'small',
-        group: this.props.value,
-        id: this.props.value.id,
+    constructor(props) {
+        super(props);
+        this.state = {
+            size: 'small',
+            showAddTask: false,
+        };
+    }
+
+    showModal = () => {
+        this.setState({showAddTask: true})
+    };
+
+    handleOk = () => {
+        this.setState({showAddTask: false})
+    };
+
+    handleCancel = () => {
+        this.setState({showAddTask: false})
     };
 
     render() {
@@ -38,6 +52,7 @@ export class TaskGroupListView extends React.Component {
         function deleteGroup() {
             deleteTaskGroupByName(name).then(res => {
                 console.log(res);
+                message.info('任务组删除成功').then(r => "任务组删除失败");
             })
         }
 
@@ -56,7 +71,17 @@ export class TaskGroupListView extends React.Component {
                     <label>详情：{description}</label>
                     <label>周期：{cycle}</label>
                     <label>标签：{label}</label>
-                    <AddTaskDialog value={name}/>
+
+                    <Button type="primary" icon={<PlusOutlined />} size="small" onClick={this.showModal}>
+                        增加任务
+                    </Button>
+
+                    <Modal title="Basic Modal" visible={this.state.showAddTask} onOk={this.handleOk} onCancel={this.handleCancel}>
+                        <AddTask groupName={this.props.value["name"]}
+                                 closeDialog={() => this.handleOk()}
+                                 refresh={() => this.props.refresh()}/>
+                    </Modal>
+
                     <Button type="primary" icon={<DeleteOutlined />} size={size} onClick={deleteGroup}>
                         删除分组
                     </Button>

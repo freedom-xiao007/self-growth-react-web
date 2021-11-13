@@ -18,7 +18,6 @@ export class AddGroup extends React.Component {
             console.log(res);
             message.info('任务组添加成功').then(r => "任务组添加失败");
             this.props.refresh();
-            this.props.close();
         })
     };
 
