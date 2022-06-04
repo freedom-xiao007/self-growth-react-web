@@ -17,7 +17,7 @@ export function addTaskGroup(groupName) {
 
 export function addNewTask(newTask) {
     return request({
-        url: "/v1/task/add",
+        url: "/api/task/update",
         method: "post",
         data: newTask,
     })
