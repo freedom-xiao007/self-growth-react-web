@@ -5,7 +5,7 @@ import {message} from "antd";
 // create an axios instance
 const service = axios.create({
     //   baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
-    baseURL: 'http://127.0.0.1:8080',
+    baseURL: 'http://localhost:80',
     // withCredentials: true, // 跨域请求时发送 cookies
     timeout: 60000, // request timeout
     headers: {
