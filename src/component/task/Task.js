@@ -72,12 +72,14 @@ class Task extends React.Component {
             console.log("getTaskListByGroup", res);
             let copyData = [];
             let resData = res.data;
-            for (let index in resData) {
-                console.log("item:", resData[index])
+            let index = 0
+            for (let key in resData) {
+                console.log("item:", resData[key])
                 copyData[index] = {
-                    "group": resData[index]["group"],
-                    "taskList": resData[index]["tasks"],
+                    "group": key,
+                    "taskList": resData[key],
                 }
+                index = index + 1;
             }
             console.log("this.data", copyData);
             this.setState({data: copyData})
@@ -105,33 +107,17 @@ class Task extends React.Component {
         })
     }
 
-    showModal = () => {
-        this.setState({showAddGroup: true})
-    };
-
     handleOk = () => {
-        this.setState({showAddGroup: false})
-    };
-
-    handleCancel = () => {
         this.setState({showAddGroup: false})
     };
 
     render() {
         return (
             <div align="left">
-                <Button type="primary" icon={<PlusOutlined />} size="normal" onClick={this.showModal}>
-                    增加分组
-                </Button>
-
-                <Modal title="增加任务分组" visible={this.state.showAddGroup} footer={null}>
-                    <AddGroup refresh={() => this.refreshAndCloseDialog()}/>
-                </Modal>
-
                 <Tabs defaultActiveKey="1">
                     {
                         this.state.data.map((item, index) => (
-                            <TabPane tab={item.group.name} key={index}>
+                            <TabPane tab={item.group} key={index}>
                                 <TaskGroupListView value={item.group}
                                                    refresh={() => this.refreshAndCloseDialog()}/>
                                 <Table dataSource={item.taskList}
