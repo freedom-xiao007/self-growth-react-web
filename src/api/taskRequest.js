@@ -2,7 +2,7 @@ import request from "./request";
 
 export function getTaskListByGroup() {
     return request({
-        url: "/v1/task/listByGroup",
+        url: "/api/task/list",
         method: "get"
     });
 }

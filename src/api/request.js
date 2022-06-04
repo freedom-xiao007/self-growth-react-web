@@ -2,6 +2,8 @@ import axios from 'axios'
 import { getLoginUserToken } from "../redux/UserInfo";
 import {message} from "antd";
 
+axios.defaults.withCredentials=true
+
 // create an axios instance
 const service = axios.create({
     //   baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
