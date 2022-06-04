@@ -39,7 +39,7 @@ export function deleteTaskGroupByName(name) {
 
 export function deleteTaskById(id) {
     return request({
-        url: "/v1/task/deleteTask/" + id,
+        url: "/api/task/delete?ids=" + id,
         method: "post",
     })
 }
