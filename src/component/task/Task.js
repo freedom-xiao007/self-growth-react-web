@@ -51,7 +51,7 @@ class Task extends React.Component {
                             <Button type="primary" icon={<CheckOutlined />} size="small" onClick={this.completeTask.bind(this, record.id)}>
                                 完成
                             </Button>
-                            <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={this.deleteTask.bind(this, record.id)}>
+                            <Button type="primary" icon={<DeleteOutlined />} size="small" onClick={this.deleteTask.bind(this, record.id, record.group, record.name)}>
                                 删除
                             </Button>
                             </Space>
@@ -99,8 +99,8 @@ class Task extends React.Component {
         });
     }
 
-    deleteTask(id) {
-        deleteTaskById(id).then(res => {
+    deleteTask(id, group, name) {
+        deleteTaskById(id, group, name).then(res => {
             console.log(res);
             message.info('任务删除成功').then(r => "任务删除失败");
             this.refreshData();

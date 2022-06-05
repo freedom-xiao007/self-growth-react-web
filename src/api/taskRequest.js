@@ -37,9 +37,9 @@ export function deleteTaskGroupByName(name) {
     })
 }
 
-export function deleteTaskById(id) {
+export function deleteTaskById(id, group, name) {
     return request({
-        url: "/api/task/delete?ids=" + id,
+        url: "/api/task/deleteOne?taskId=" + id + "&group=" + group + "&name=" + name,
         method: "post",
     })
 }
