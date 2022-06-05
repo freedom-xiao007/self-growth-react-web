@@ -117,7 +117,7 @@ export class AddTask extends React.Component {
                     </Select>
                 </Form.Item>
 
-                <Form.Item name="outputType" label="输出类型类型：" rules={[{ required: false}]}>
+                <Form.Item name="taskTypeEnum" label="输出类型类型：" rules={[{ required: false}]}>
                     <Select
                         placeholder="Select a option and change input text above"
                         allowClear
